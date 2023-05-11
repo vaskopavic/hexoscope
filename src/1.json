@@ -1,0 +1,25 @@
+{
+  "rows": 4,
+  "columns": 4,
+  "state": "playing",
+  "numberOfSwaps": 0,
+  "maxNumberOfSwaps": 50,
+  "connectors": [
+    "sc-2-3",
+    "rc-1-3",
+    "",
+    "rc-6-5",
+    "cc-2-3-6",
+    "rc-1-4",
+    "rc-1-2-5",
+    "ec-3-5",
+    "rc-1-5",
+    "rc-4-5",
+    "rc-3-5",
+    "",
+    "rc-2-5",
+    "rc-3-6",
+    "",
+    ""
+  ]
+}
