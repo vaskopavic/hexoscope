@@ -7,6 +7,7 @@ class Game {
   private numberOfSwaps: number;
   private maxNumberOfSwaps: number;
   private connectors: string[];
+  private matrixStack: string[][][];
 
   constructor(gameId: string) {
     const json: GameState = require(`./${gameId}.json`);
@@ -17,6 +18,7 @@ class Game {
     this.numberOfSwaps = json.numberOfSwaps;
     this.maxNumberOfSwaps = json.maxNumberOfSwaps;
     this.connectors = json.connectors;
+    this.matrixStack = [];
 
     console.log(`Hexoscope -- level ${gameId} loaded!`);
     console.log("==================================");
@@ -271,9 +273,13 @@ class Game {
       return;
     }
 
+    const previousConnectors = [...this.connectors];
+
     const temp = this.connectors[conn1Index];
     this.connectors[conn1Index] = this.connectors[conn2Index];
     this.connectors[conn2Index] = temp;
+
+    this.matrixStack.push(this.convertToMatrix(previousConnectors));
 
     this.numberOfSwaps++;
 
@@ -296,12 +302,26 @@ class Game {
   }
 
   undo() {
-    // Implement undo() method here
+    if (this.numberOfSwaps === 0) {
+      console.log("\nCannot undo first move");
+      return;
+    }
+
+    const previousMatrix = this.matrixStack.pop();
+
+    this.connectors = this.convertToArray(previousMatrix);
+    this.state = "playing";
+    this.numberOfSwaps--;
+
+    console.log("\nUndoing last move...");
+    console.log("==================================");
+    this.printStats();
   }
 }
 
 const game = new Game("1");
-// game.swap("cc-2-6", "rc-4-6");
+game.swap("cc-2-6", "rc-4-6");
+game.undo();
 // game.swap("rc-2-6", "cc-4-6");
 // game.swap("rc-2-4", "rc-3-4");
 // game.swap("rc-4-6", "rc-1-6");
