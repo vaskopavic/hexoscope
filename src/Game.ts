@@ -255,13 +255,13 @@ class Game {
     }
   }
 
-  swap(conn1: string, conn2: string) {
+  swap(conn1Index: number, conn2Index: number) {
     if (this.state !== "playing") {
       return;
     }
 
-    const conn1Index = this.connectors.indexOf(conn1);
-    const conn2Index = this.connectors.indexOf(conn2);
+    const conn1 = this.connectors[conn1Index];
+    const conn2 = this.connectors[conn2Index];
 
     if (conn1Index === -1 || conn2Index === -1) {
       console.log("\nCannot swap non-existent connectors");
@@ -298,6 +298,8 @@ class Game {
       this.state = "lost";
     }
 
+    console.log("\nSwapping connectors...");
+    console.log("==================================");
     this.printStats();
   }
 
@@ -319,10 +321,14 @@ class Game {
   }
 }
 
-const game = new Game("1");
-game.swap("cc-2-6", "rc-4-6");
-game.undo();
-// game.swap("rc-2-6", "cc-4-6");
-// game.swap("rc-2-4", "rc-3-4");
-// game.swap("rc-4-6", "rc-1-6");
-game.swap("rc-2-5", "rc-3-6");
+// const game = new Game("1");
+// game.swap(4, 9);
+// game.undo();
+// game.swap(5, 12);
+
+const game2 = new Game("2");
+game2.swap(9, 8);
+game2.swap(12, 10);
+game2.swap(21, 10);
+game2.swap(26, 8);
+game2.swap(34, 33);
